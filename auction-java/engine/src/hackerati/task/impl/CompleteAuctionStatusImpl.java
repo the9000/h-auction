@@ -65,7 +65,7 @@ class CompleteAuctionStatusImpl implements AdminAuctionStatus {
     if (myPhase != AuctionPhase.ACTIVE) {
       throw new InvalidBidError("Cannot bid, phase is " + myPhase);
     }
-    if (new_bid - myLastBid < MINIMAL_INCREASE) {
+    if (myLastBid != null && new_bid - myLastBid < MINIMAL_INCREASE) {
       throw new InvalidBidError("Amount is too low for a new bid.");
     }
     return new CompleteAuctionStatusImpl(

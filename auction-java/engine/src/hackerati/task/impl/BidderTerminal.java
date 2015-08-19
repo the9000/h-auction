@@ -1,6 +1,7 @@
 package hackerati.task.impl;
 
 import hackerati.provided.KVStore;
+import hackerati.task.AuctionPhase;
 import hackerati.task.BiddingQueryEngine;
 import hackerati.task.BiddingEngine;
 import hackerati.task.BiddingStatus;
@@ -25,16 +26,20 @@ class BidderTerminal implements BiddingEngine, BiddingQueryEngine {
                           /* @NonNull */ String bidder,
                           int new_price) {
     synchronized (myLockingObject) {  // only one thread can do an update.
-      CompleteAuctionStatusImpl current_state = myKVStore.get(item_name);
+      CompleteAuctionStatusImpl current_status = myKVStore.get(item_name);
       // All the checks are done by withBid().
-      CompleteAuctionStatusImpl new_state = current_state.withBid(bidder, new_price);
-      myKVStore.set(item_name, new_state);
+      CompleteAuctionStatusImpl new_status = current_status.withBid(bidder, new_price);
+      myKVStore.set(item_name, new_status);
     }
   }
 
   @Override
   public BiddingStatus getBiddingStatus(String item_name) {
-    return null;
+    CompleteAuctionStatusImpl status = myKVStore.get(item_name);
+    String buyer = status.getPhase() == AuctionPhase.CALLED? status.getBuyer() : null;
+    return new BiddingStatusImpl(
+        status.getPhase(), buyer, status.getLastBid()
+    );
   }
 
 }

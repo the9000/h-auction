@@ -44,13 +44,7 @@ class BidderTerminal implements BiddingEngine, BiddingQueryEngine {
 
   @Override
   public BiddingStatus getBiddingStatus(String item_name) {
-    CompleteAuctionStatusImpl status = myKVStore.get(item_name);
-    if (status == null) {
-      return null;  // verily, a nullable type is a Maybe, and this call is like >>=.
-    }
-    return new BiddingStatusImpl(
-        status.getPhase(), status.getLastBidder(), status.getLastBid()
-    );
+    return BiddingStatusImpl.fromAuctionStatusImpl(myKVStore.get(item_name));
   }
 
 }

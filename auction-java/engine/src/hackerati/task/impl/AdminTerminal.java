@@ -67,12 +67,6 @@ class AdminTerminal implements AdminEngine, BiddingQueryEngine {
 
   @Override
   public BiddingStatus getBiddingStatus(String item_name) {
-    // Same implementation as in BidderTerminal.
-    // Could be factored out if keeping the two in sync becomes an issue.
-    // E.g. BiddingStatusImpl constructor or a factory method could implement it.
-    CompleteAuctionStatusImpl status = myKVStore.get(item_name);
-    return new BiddingStatusImpl(
-        status.getPhase(), status.getLastBidder(), status.getLastBid()
-    );
+    return BiddingStatusImpl.fromAuctionStatusImpl(myKVStore.get(item_name));
   }
 }

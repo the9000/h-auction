@@ -58,6 +58,7 @@ public class BiddingQueryEngineTest {
     myAdminEngine.enlistItem("foo", 100);
     myAdminEngine.startAuction("foo");
     myBiddingEngine.placeBid("foo", "bidder", 110);
+    myAdminEngine.callAuction("foo");
     BiddingStatus status = myEngine.getBiddingStatus("foo");
     assertEquals("bidder", status.getBuyer());
   }

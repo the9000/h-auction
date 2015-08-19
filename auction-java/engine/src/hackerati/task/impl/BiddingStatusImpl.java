@@ -26,7 +26,7 @@ class BiddingStatusImpl implements BiddingStatus {
                            /* @Nullable */ Integer last_bid)
   {
     final String buyer;
-    if (phase != AuctionPhase.CALLED) {
+    if (phase == AuctionPhase.CALLED) {
       buyer = last_bidder;
     } else {
       buyer = null;
@@ -46,4 +46,13 @@ class BiddingStatusImpl implements BiddingStatus {
   @Override
   public String getBuyer() { return myBuyer; }
 
+  static BiddingStatus fromAuctionStatusImpl(CompleteAuctionStatusImpl status) {
+    if (status == null) {
+      return null;  // verily, a nullable type is a Maybe, and this call is like >>=.
+    }
+    return new BiddingStatusImpl(
+        status.getPhase(), status.getLastBidder(), status.getLastBid()
+    );
+
+  }
 }

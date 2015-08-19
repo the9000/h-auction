@@ -14,6 +14,15 @@ class AdminTerminal implements AdminEngine, BiddingQueryEngine {
   private final KVStore<String, CompleteAuctionStatusImpl> myKVStore;
   private final Object myLockingObject;
 
+  /**
+   * Creates an admin terminal.
+   *
+   * @param myKVStore KV store, common for all terminals.
+   * @param myLockingObject any object, same for all terminals.
+   *
+   * Note: If we were to do per-item locking, we could synchronize
+   *    on item_name.intern().
+   */
   public AdminTerminal(/* @NonNull */ KVStore<String, CompleteAuctionStatusImpl> myKVStore,
                        /* @NonNull */ Object myLockingObject) {
     this.myKVStore = myKVStore;

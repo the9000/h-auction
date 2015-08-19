@@ -19,6 +19,12 @@ class BidderTerminal implements BiddingEngine, BiddingQueryEngine {
   private final KVStore<String, CompleteAuctionStatusImpl> myKVStore;
   private final Object myLockingObject;
 
+  /**
+   * Creates a bidder terminal.
+   *
+   * @param kvstore KV store, common for all terminals (not necessarily the same instance).
+   * @param locking_object any object, same for all terminals.
+   */
   public BidderTerminal(/* @NonNull */ KVStore<String, CompleteAuctionStatusImpl> kvstore,
                         /* @NonNull */ Object locking_object) {
     myKVStore = kvstore;

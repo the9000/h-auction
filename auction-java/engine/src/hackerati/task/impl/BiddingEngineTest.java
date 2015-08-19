@@ -57,6 +57,21 @@ public class BiddingEngineTest {
   }
 
   @Test(expected = InvalidBidError.class)
+  public void testBidBeforStartFails() {
+    String item_name = "item";
+    myAdminEngine.enlistItem(item_name, 50);
+    myEngine.placeBid(item_name, "foo", 100);
+  }
+
+  @Test(expected = InvalidBidError.class)
+  public void testBidAfterCallFails() {
+    String item_name = "item";
+    createActiveItem(item_name);
+    myAdminEngine.callAuction(item_name);
+    myEngine.placeBid(item_name, "foo", 100);
+  }
+
+  @Test(expected = InvalidBidError.class)
   public void testBidEqualToLastBidFails() {
     String item_name = "item";
     createActiveItem(item_name);

@@ -1,13 +1,14 @@
 package hackerati.task.impl;
 
 
-import hackerati.task.*;
-import org.junit.Test;
+import hackerati.task.AdminEngine;
+import hackerati.task.BiddingEngine;
+import hackerati.task.BiddingQueryEngine;
+import hackerati.task.BiddingStatus;
 import org.junit.Before;
-
+import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
 /**

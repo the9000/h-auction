@@ -10,6 +10,10 @@ import hackerati.task.BiddingStatus;
  * Instances of this are available to bidders.
  *
  * Allows to do the bidding and query bidder-accessible status of items.
+ *
+ * This is the terminal object of the library. The library user should construct
+ * instances of this class and pass it to clients serving bidders.
+
  */
 class BidderTerminal implements BiddingEngine, BiddingQueryEngine {
   private final KVStore<String, CompleteAuctionStatusImpl> myKVStore;
@@ -36,9 +40,8 @@ class BidderTerminal implements BiddingEngine, BiddingQueryEngine {
   @Override
   public BiddingStatus getBiddingStatus(String item_name) {
     CompleteAuctionStatusImpl status = myKVStore.get(item_name);
-    String buyer = status.getPhase() == AuctionPhase.CALLED? status.getBuyer() : null;
     return new BiddingStatusImpl(
-        status.getPhase(), buyer, status.getLastBid()
+        status.getPhase(), status.getLastBidder(), status.getLastBid()
     );
   }
 

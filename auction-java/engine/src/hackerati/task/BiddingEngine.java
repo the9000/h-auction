@@ -1,7 +1,9 @@
 package hackerati.task;
 
 /**
- * Allows a bidder to bid on auctions..
+ * Allows a bidder to bid on auctions.
+ *
+ * Bidder code should be built against this interface.
  */
 public interface BiddingEngine {
 

@@ -13,15 +13,25 @@ class BiddingStatusImpl implements BiddingStatus {
   private final String myBuyer;
   private final Integer myLastBid;
 
+  /**
+   * This constructor sets buyer name to last bidder name
+   * iff the phase is CALLED, else it sets buyer to null.
+   *
+   * @param phase phase to set.
+   * @param last_bidder last bidder to calculate buyer from.
+   * @param last_bid last bid value.
+   */
   public BiddingStatusImpl(/* @NonNull */  AuctionPhase phase,
-                           /* @Nullable */ String buyer,
+                           /* @Nullable */ String last_bidder,
                            /* @Nullable */ Integer last_bid)
   {
+    final String buyer;
     if (phase != AuctionPhase.CALLED) {
-      assert last_bid == null : "Cannot set sale price if myPhase is " + phase;
-      assert buyer == null : "Cannot set buyer if myPhase is " + phase;
+      buyer = last_bidder;
+    } else {
+      buyer = null;
     }
-    assert ((buyer == null) || (last_bid != null)) : "If setting buyer, set the bid, too.";
+    assert ((last_bidder == null) || (last_bid != null)) : "If setting buyer, set the bid, too.";
     this.myPhase = phase;
     this.myBuyer = buyer;
     this.myLastBid = last_bid;

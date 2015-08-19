@@ -35,7 +35,7 @@ class BidderTerminal implements BiddingEngine, BiddingQueryEngine {
     synchronized (myLockingObject) {  // only one thread can do an update.
       CompleteAuctionStatusImpl current_status = myKVStore.get(item_name);
       if (current_status == null) {
-        throw new AuctionNotFoundError("No auction round for " + item_name);
+        throw new AuctionNotFoundError("No auction found for " + item_name);
       }
       // All the checks are done by withBid().
       myKVStore.set(item_name, current_status.withBid(bidder, new_price));
@@ -45,6 +45,9 @@ class BidderTerminal implements BiddingEngine, BiddingQueryEngine {
   @Override
   public BiddingStatus getBiddingStatus(String item_name) {
     CompleteAuctionStatusImpl status = myKVStore.get(item_name);
+    if (status == null) {
+      return null;  // verily, a nullable type is a Maybe, and this call is like >>=.
+    }
     return new BiddingStatusImpl(
         status.getPhase(), status.getLastBidder(), status.getLastBid()
     );

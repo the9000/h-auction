@@ -59,6 +59,17 @@ only interfaces, and static typing also helps greatly. A number of corners were 
 all hopefully commented in the code. Tests for each of the important interfaces
 are provided.
 
+### Nullness annotations
+
+For some reason both my JDK installations lacked `javax.annotation.Nonnull` and friends.
+Instead of installing anything, I marked nullness in comments. So, this part has not been
+seriously statically inspected, e.g. by Idea.
+
+### Tests
+
+Tests use a standard `JUnit4`. All reasonably interesting cases of public interfaces uses
+are covered.
+
 ## Parts remaining after assembly
 
 I found no use for a unique ID generator.

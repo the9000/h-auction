@@ -47,7 +47,7 @@ auction and store the mapping in the KV store.
 
 The problem statement offers to only give the bidders _"the status of the auction
 if there is any, if the item is sold, it should return the information
-regarding the price sold and to whom it was sold to".
+regarding the price sold and to whom it was sold to"_.
 
 This is clearly insufficient for bidding, so I provide the last bid amount
 for active auctions, too.
